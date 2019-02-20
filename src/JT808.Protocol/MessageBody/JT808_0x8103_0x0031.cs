@@ -1,12 +1,12 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JT808.Protocol.MessageBody
 {
     /// <summary>
     /// 电子围栏半径（非法位移阈值），单位为米
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8103_0x0031Formatter))]
+    [JT808Formatter(typeof(JT808_0x8103_0x0031_Formatter))]
     public class JT808_0x8103_0x0031 : JT808_0x8103_BodyBase
     {
         public override uint ParamId { get; set; } = 0x0031;

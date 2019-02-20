@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +8,7 @@ namespace JT808.Protocol.MessageBody
     /// <summary>
     /// 位置信息汇报
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x0200Formatter))]
+    [JT808Formatter(typeof(JT808_0x0200_Formatter))]
     public class JT808_0x0200 : JT808Bodies
     {
         /// <summary>

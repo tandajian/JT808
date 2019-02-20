@@ -1,4 +1,4 @@
-﻿using JT808.Protocol.JT808Internal;
+﻿using JT808.Protocol.Internal;
 using JT808.Protocol.MessageBody;
 using System;
 using System.Runtime.CompilerServices;

@@ -1,6 +1,6 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
-using JT808.Protocol.JT808Properties;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
+using JT808.Protocol.Metadata;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ namespace JT808.Protocol.MessageBody
     /// CAN 总线数据上传
     /// 0x0705
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x0705Formatter))]
+    [JT808Formatter(typeof(JT808_0x0705_Formatter))]
     public class JT808_0x0705 : JT808Bodies
     {
         /// <summary>

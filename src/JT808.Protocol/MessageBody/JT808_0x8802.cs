@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 using System;
 
 namespace JT808.Protocol.MessageBody
@@ -8,7 +8,7 @@ namespace JT808.Protocol.MessageBody
     /// 存储多媒体数据检索
     /// 0x8802
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8802Formatter))]
+    [JT808Formatter(typeof(JT808_0x8802_Formatter))]
     public class JT808_0x8802 : JT808Bodies
     {
         /// <summary>

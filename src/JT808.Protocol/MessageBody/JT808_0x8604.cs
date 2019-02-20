@@ -1,6 +1,6 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
-using JT808.Protocol.JT808Properties;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
+using JT808.Protocol.Metadata;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ namespace JT808.Protocol.MessageBody
     /// 设置多边形区域
     /// 0x8604
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8604Formatter))]
+    [JT808Formatter(typeof(JT808_0x8604_Formatter))]
     public class JT808_0x8604 : JT808Bodies
     {
         /// <summary>

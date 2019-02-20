@@ -1,12 +1,12 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JT808.Protocol.MessageBody
 {
     /// <summary>
     /// 车辆控制应答
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x0500Formatter))]
+    [JT808Formatter(typeof(JT808_0x0500_Formatter))]
     public class JT808_0x0500 : JT808Bodies
     {
         /// <summary>

@@ -4,6 +4,7 @@ using JT808.Protocol.MessageBody;
 using System;
 using System.Collections.Generic;
 using Xunit;
+using JT808.Protocol.Metadata;
 
 namespace JT808.Protocol.Test.MessageBody
 {
@@ -20,14 +21,14 @@ namespace JT808.Protocol.Test.MessageBody
                 EndTime = DateTime.Parse("2018-11-21 00:00:12"),
                 HighestSpeed = 62,
                 OverspeedDuration = 218,
-                PeakItems = new List<JT808Properties.JT808PeakProperty>()
+                PeakItems = new List<JT808PeakProperty>()
             };
-            jT808_0X8604.PeakItems.Add(new JT808Properties.JT808PeakProperty
+            jT808_0X8604.PeakItems.Add(new JT808PeakProperty
             {
                  Lat= 123456789,
                  Lng= 123456788
             });
-            jT808_0X8604.PeakItems.Add(new JT808Properties.JT808PeakProperty
+            jT808_0X8604.PeakItems.Add(new JT808PeakProperty
             {
                 Lat = 123456700,
                 Lng = 123456701

@@ -4,6 +4,7 @@ using JT808.Protocol.MessageBody;
 using System;
 using System.Collections.Generic;
 using Xunit;
+using JT808.Protocol.Metadata;
 
 namespace JT808.Protocol.Test.MessageBody
 {
@@ -15,10 +16,10 @@ namespace JT808.Protocol.Test.MessageBody
             JT808_0x0802 jT808_0X0802 = new JT808_0x0802
             {
                 MsgNum = 12369,
-                MultimediaSearchItems = new List<JT808Properties.JT808MultimediaSearchProperty>()
+                MultimediaSearchItems = new List<JT808MultimediaSearchProperty>()
             };
 
-            jT808_0X0802.MultimediaSearchItems.Add(new JT808Properties.JT808MultimediaSearchProperty()
+            jT808_0X0802.MultimediaSearchItems.Add(new JT808MultimediaSearchProperty()
             {
                 ChannelId = 123,
                 EventItemCoding = JT808EventItemCoding.定时动作.ToByteValue(),
@@ -37,7 +38,7 @@ namespace JT808.Protocol.Test.MessageBody
                 }
             });
 
-            jT808_0X0802.MultimediaSearchItems.Add(new JT808Properties.JT808MultimediaSearchProperty()
+            jT808_0X0802.MultimediaSearchItems.Add(new JT808MultimediaSearchProperty()
             {
                 ChannelId = 124,
                 EventItemCoding = JT808EventItemCoding.平台下发指令.ToByteValue(),

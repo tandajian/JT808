@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Extensions.DependencyInjection.Test.JT808_0x0701BodiesImpl;
-using JT808.Protocol.JT808Formatters;
+using JT808.Protocol.Formatters;
 using System;
 
 namespace JT808.Protocol.Extensions.DependencyInjection.Test.JT808Formatters

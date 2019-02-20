@@ -3,6 +3,7 @@ using JT808.Protocol.MessageBody;
 using System;
 using System.Collections.Generic;
 using Xunit;
+using JT808.Protocol.Metadata;
 
 namespace JT808.Protocol.Test.MessageBody
 {
@@ -17,9 +18,9 @@ namespace JT808.Protocol.Test.MessageBody
                 RouteProperty = 1268,
                 StartTime = DateTime.Parse("2018-11-20 00:00:12"),
                 EndTime = DateTime.Parse("2018-11-21 00:00:12"),
-                InflectionPointItems = new List<JT808Properties.JT808InflectionPointProperty>()
+                InflectionPointItems = new List<JT808InflectionPointProperty>()
             };
-            jT808_0X8606.InflectionPointItems.Add(new JT808Properties.JT808InflectionPointProperty()
+            jT808_0X8606.InflectionPointItems.Add(new JT808InflectionPointProperty()
             {
                 InflectionPointId = 1000,
                 InflectionPointLat = 123456789,
@@ -32,7 +33,7 @@ namespace JT808.Protocol.Test.MessageBody
                 SectionProperty = 89,
                 SectionWidth = 56
             });
-            jT808_0X8606.InflectionPointItems.Add(new JT808Properties.JT808InflectionPointProperty()
+            jT808_0X8606.InflectionPointItems.Add(new JT808InflectionPointProperty()
             {
                 InflectionPointId = 1001,
                 InflectionPointLat = 123456780,
@@ -120,9 +121,9 @@ namespace JT808.Protocol.Test.MessageBody
                 RouteProperty = 51,
                 StartTime = DateTime.Parse("2018-11-20 00:00:12"),
                 EndTime = DateTime.Parse("2018-11-21 00:00:12"),
-                InflectionPointItems = new List<JT808Properties.JT808InflectionPointProperty>()
+                InflectionPointItems = new List<JT808InflectionPointProperty>()
             };
-            jT808_0X8606.InflectionPointItems.Add(new JT808Properties.JT808InflectionPointProperty()
+            jT808_0X8606.InflectionPointItems.Add(new JT808InflectionPointProperty()
             {
                 InflectionPointId = 1000,
                 InflectionPointLat = 123456789,
@@ -135,7 +136,7 @@ namespace JT808.Protocol.Test.MessageBody
                 SectionProperty = 3,
                 SectionWidth = 56
             });
-            jT808_0X8606.InflectionPointItems.Add(new JT808Properties.JT808InflectionPointProperty()
+            jT808_0X8606.InflectionPointItems.Add(new JT808InflectionPointProperty()
             {
                 InflectionPointId = 1001,
                 InflectionPointLat = 123456780,

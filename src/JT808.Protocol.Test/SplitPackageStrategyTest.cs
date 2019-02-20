@@ -1,4 +1,4 @@
-﻿using JT808.Protocol.JT808Internal;
+﻿using JT808.Protocol.Internal;
 using System;
 using System.IO;
 using Xunit;

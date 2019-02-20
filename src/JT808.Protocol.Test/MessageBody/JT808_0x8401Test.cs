@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Extensions;
-using JT808.Protocol.JT808Properties;
+using JT808.Protocol.Metadata;
 using JT808.Protocol.MessageBody;
 using System.Collections.Generic;
 using Xunit;

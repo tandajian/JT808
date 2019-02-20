@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 using System.Collections.Generic;
 
 namespace JT808.Protocol.MessageBody
@@ -8,7 +8,7 @@ namespace JT808.Protocol.MessageBody
     /// 删除路线
     /// 0x8607
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8607Formatter))]
+    [JT808Formatter(typeof(JT808_0x8607_Formatter))]
     public class JT808_0x8607 : JT808Bodies
     {
         /// <summary>

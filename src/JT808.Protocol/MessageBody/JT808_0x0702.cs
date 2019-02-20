@@ -1,6 +1,6 @@
 ﻿using JT808.Protocol.Attributes;
 using JT808.Protocol.Enums;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 using System;
 
 namespace JT808.Protocol.MessageBody
@@ -8,7 +8,7 @@ namespace JT808.Protocol.MessageBody
     /// <summary>
     /// 驾驶员身份信息采集上报
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x0702Formatter))]
+    [JT808Formatter(typeof(JT808_0x0702_Formatter))]
     public class JT808_0x0702 : JT808Bodies
     {
         /// <summary>

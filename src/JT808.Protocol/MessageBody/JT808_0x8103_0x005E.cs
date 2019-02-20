@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JT808.Protocol.MessageBody
 {
@@ -7,7 +7,7 @@ namespace JT808.Protocol.MessageBody
     /// 侧翻报警参数设置：
     /// 侧翻角度，单位 1 度，默认为 30 度
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8103_0x005EFormatter))]
+    [JT808Formatter(typeof(JT808_0x8103_0x005E_Formatter))]
     public class JT808_0x8103_0x005E : JT808_0x8103_BodyBase
     {
         public override uint ParamId { get; set; } = 0x005E;

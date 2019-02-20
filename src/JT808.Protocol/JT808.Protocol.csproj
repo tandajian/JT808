@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/SmallChi/JT808</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/SmallChi/JT808/blob/master/LICENSE</PackageLicenseUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.4</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\JT808.Protocol.xml</DocumentationFile>
@@ -23,9 +23,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="JT808Properties\JT808LocationAttachProperties\**" />
-    <EmbeddedResource Remove="JT808Properties\JT808LocationAttachProperties\**" />
-    <None Remove="JT808Properties\JT808LocationAttachProperties\**" />
+    <Compile Remove="Metadata\JT808LocationAttachProperties\**" />
+    <EmbeddedResource Remove="Metadata\JT808LocationAttachProperties\**" />
+    <None Remove="Metadata\JT808LocationAttachProperties\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,8 +33,8 @@
     <Compile Remove="IJT808Properties.cs" />
     <Compile Remove="JT808BufferedEntityBase.cs" />
     <Compile Remove="JT808MessageBodyFactory.cs" />
-    <Compile Remove="JT808Properties\JT808TerminalLoginRequestProperty.cs" />
-    <Compile Remove="JT808Properties\JT808UploadLocationRequestProperty.cs" />
+    <Compile Remove="Metadata\JT808TerminalLoginRequestProperty.cs" />
+    <Compile Remove="Metadata\JT808UploadLocationRequestProperty.cs" />
   </ItemGroup>
   
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using JT808.Protocol.Attributes;
 using JT808.Protocol.Enums;
 using JT808.Protocol.Extensions;
-using JT808.Protocol.JT808Formatters;
+using JT808.Protocol.Formatters;
 using JT808.Protocol.MessageBody;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

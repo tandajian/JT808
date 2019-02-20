@@ -1,4 +1,4 @@
-﻿using JT808.Protocol.JT808Formatters;
+﻿using JT808.Protocol.Formatters;
 using System;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;

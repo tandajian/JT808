@@ -1,12 +1,12 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JT808.Protocol.MessageBody
 {
     /// <summary>
     /// 文本信息下发
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8300Formatter))]
+    [JT808Formatter(typeof(JT808_0x8300_Formatter))]
     public class JT808_0x8300 : JT808Bodies
     {
         /// <summary>

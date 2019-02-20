@@ -1,12 +1,12 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JT808.Protocol.MessageBody
 {
     /// <summary>
     /// 车辆所在的省域 ID
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8103_0x0081Formatter))]
+    [JT808Formatter(typeof(JT808_0x8103_0x0081_Formatter))]
     public class JT808_0x8103_0x0081 : JT808_0x8103_BodyBase
     {
         public override uint ParamId { get; set; } = 0x0081;

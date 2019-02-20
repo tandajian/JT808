@@ -1,10 +1,10 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 
 namespace JT808.Protocol.MessageBody
 {
-    [JT808Formatter(typeof(JT808_0x0200_0x25Formatter))]
+    [JT808Formatter(typeof(JT808_0x0200_0x25_Formatter))]
     public class JT808_0x0200_0x25 : JT808_0x0200_BodyBase
     {
         /// <summary>

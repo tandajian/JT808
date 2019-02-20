@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JT808.Protocol.MessageBody
 {
@@ -9,7 +9,7 @@ namespace JT808.Protocol.MessageBody
     /// 0x02：2000ms；0x03：3000ms；
     /// 0x04：4000ms。
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8103_0x0092Formatter))]
+    [JT808Formatter(typeof(JT808_0x8103_0x0092_Formatter))]
     public class JT808_0x8103_0x0092 : JT808_0x8103_BodyBase
     {
         public override uint ParamId { get; set; } = 0x0092;

@@ -3,6 +3,7 @@ using JT808.Protocol.Extensions;
 using JT808.Protocol.MessageBody;
 using System.Collections.Generic;
 using Xunit;
+using JT808.Protocol.Metadata;
 
 namespace JT808.Protocol.Test.MessageBody
 {
@@ -14,14 +15,14 @@ namespace JT808.Protocol.Test.MessageBody
             JT808_0x8303 jT808_0X8303 = new JT808_0x8303
             {
                 SettingType = JT808InformationSettingType.删除终端全部信息项.ToByteValue(),
-                InformationItems = new List<JT808Properties.JT808InformationItemProperty>()
+                InformationItems = new List<JT808InformationItemProperty>()
             };
-            jT808_0X8303.InformationItems.Add(new JT808Properties.JT808InformationItemProperty
+            jT808_0X8303.InformationItems.Add(new JT808InformationItemProperty
             {
                   InformationType=11,
                   InformationName="smallchi1"
             });
-            jT808_0X8303.InformationItems.Add(new JT808Properties.JT808InformationItemProperty
+            jT808_0X8303.InformationItems.Add(new JT808InformationItemProperty
             {
                 InformationType = 22,
                 InformationName = "smallchi2"

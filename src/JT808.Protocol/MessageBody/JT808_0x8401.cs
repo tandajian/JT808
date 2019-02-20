@@ -1,7 +1,7 @@
 ﻿using JT808.Protocol.Attributes;
 using JT808.Protocol.Enums;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
-using JT808.Protocol.JT808Properties;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
+using JT808.Protocol.Metadata;
 using System.Collections.Generic;
 
 namespace JT808.Protocol.MessageBody
@@ -9,7 +9,7 @@ namespace JT808.Protocol.MessageBody
     /// <summary>
     /// 设置电话本
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8401Formatter))]
+    [JT808Formatter(typeof(JT808_0x8401_Formatter))]
     public class JT808_0x8401 : JT808Bodies
     {
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using JT808.Protocol.JT808Properties;
+﻿using JT808.Protocol.Metadata;
 using System;
 using System.Collections.Generic;
 

@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JT808.Protocol.MessageBody
 {
@@ -11,7 +11,7 @@ namespace JT808.Protocol.MessageBody
     /// bit29 表示数据采集方式，0：原始数据，1：采集区间的计算值；
     /// bit28-bit0 表示 CAN 总线 ID。
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8103_0x0110Formatter))]
+    [JT808Formatter(typeof(JT808_0x8103_0x0110_Formatter))]
     public class JT808_0x8103_0x0110 : JT808_0x8103_BodyBase
     {
         public override uint ParamId { get; set; } = 0x0110;

@@ -4,6 +4,7 @@ using JT808.Protocol.MessageBody;
 using System;
 using System.Collections.Generic;
 using Xunit;
+using JT808.Protocol.Metadata;
 
 namespace JT808.Protocol.Test.MessageBody
 {
@@ -15,9 +16,9 @@ namespace JT808.Protocol.Test.MessageBody
             JT808_0x8602 jT808_0X8602 = new JT808_0x8602
             {
                 SettingAreaProperty = JT808SettingProperty.追加区域.ToByteValue(),
-                AreaItems = new List<JT808Properties.JT808RectangleAreaProperty>()
+                AreaItems = new List<JT808RectangleAreaProperty>()
             };
-            jT808_0X8602.AreaItems.Add(new JT808Properties.JT808RectangleAreaProperty
+            jT808_0X8602.AreaItems.Add(new JT808RectangleAreaProperty
             {
                 AreaId = 1522,
                 AreaProperty = 222,
@@ -30,7 +31,7 @@ namespace JT808.Protocol.Test.MessageBody
                 HighestSpeed = 60,
                 OverspeedDuration = 200
             });
-            jT808_0X8602.AreaItems.Add(new JT808Properties.JT808RectangleAreaProperty
+            jT808_0X8602.AreaItems.Add(new JT808RectangleAreaProperty
             {
                 AreaId = 1523,
                 AreaProperty = 10,

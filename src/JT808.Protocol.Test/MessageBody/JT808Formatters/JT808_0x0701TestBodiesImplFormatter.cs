@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Extensions;
-using JT808.Protocol.JT808Formatters;
+using JT808.Protocol.Formatters;
 using JT808.Protocol.Test.MessageBody.JT808_0x0701BodiesImpl;
 using System;
 

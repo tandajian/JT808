@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Enums;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 using JT808.Protocol.Attributes;
 
 namespace JT808.Protocol.MessageBody
@@ -7,7 +7,7 @@ namespace JT808.Protocol.MessageBody
     /// <summary>
     /// 终端通用应答
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x0001Formatter))]
+    [JT808Formatter(typeof(JT808_0x0001_Formatter))]
     public class JT808_0x0001 : JT808Bodies
     {
         /// <summary>

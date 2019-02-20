@@ -1,7 +1,7 @@
 ﻿using JT808.Protocol.Attributes;
 using JT808.Protocol.Enums;
 using JT808.Protocol.Exceptions;
-using JT808.Protocol.JT808Formatters;
+using JT808.Protocol.Formatters;
 using System;
 using System.Reflection;
 

@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JT808.Protocol.MessageBody
 {
@@ -7,7 +7,7 @@ namespace JT808.Protocol.MessageBody
     /// 人工确认报警消息
     /// 0x8203
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8203Formatter))]
+    [JT808Formatter(typeof(JT808_0x8203_Formatter))]
     public class JT808_0x8203 : JT808Bodies
     {
         /// <summary>

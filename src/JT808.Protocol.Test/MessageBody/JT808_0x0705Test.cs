@@ -3,6 +3,7 @@ using JT808.Protocol.MessageBody;
 using System;
 using System.Collections.Generic;
 using Xunit;
+using JT808.Protocol.Metadata;
 
 namespace JT808.Protocol.Test.MessageBody
 {
@@ -14,14 +15,14 @@ namespace JT808.Protocol.Test.MessageBody
             JT808_0x0705 jT808_0X0705 = new JT808_0x0705
             {
                 FirstCanReceiveTime = DateTime.Parse("2018-11-15 20:00:05.350"),
-                CanItems = new List<JT808Properties.JT808CanProperty>()
+                CanItems = new List<JT808CanProperty>()
             };
-            jT808_0X0705.CanItems.Add(new JT808Properties.JT808CanProperty()
+            jT808_0X0705.CanItems.Add(new JT808CanProperty()
             {
                 CanId = new byte[] { 0x01, 0x02, 0x03, 0x04 },
                 CanData = new byte[] { 0x01, 0x02, 0x03, 0x04, 0x01, 0x02, 0x03, 0x04 },
             });
-            jT808_0X0705.CanItems.Add(new JT808Properties.JT808CanProperty()
+            jT808_0X0705.CanItems.Add(new JT808CanProperty()
             {
                 CanId = new byte[] { 0x05, 0x06, 0x07, 0x08 },
                 CanData = new byte[] { 0x01, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x01 },

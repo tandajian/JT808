@@ -1,5 +1,5 @@
 ﻿using JT808.Protocol.Attributes;
-using JT808.Protocol.JT808Formatters.MessageBodyFormatters;
+using JT808.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JT808.Protocol.MessageBody
 {
@@ -8,7 +8,7 @@ namespace JT808.Protocol.MessageBody
     /// b7-b0： 碰撞时间，单位 4ms；
     /// b15-b8：碰撞加速度，单位 0.1g，设置范围在：0-79 之间，默认为10。
     /// </summary>
-    [JT808Formatter(typeof(JT808_0x8103_0x005DFormatter))]
+    [JT808Formatter(typeof(JT808_0x8103_0x005D_Formatter))]
     public class JT808_0x8103_0x005D : JT808_0x8103_BodyBase
     {
         public override uint ParamId { get; set; } = 0x005D;

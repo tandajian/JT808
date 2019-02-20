@@ -4,6 +4,7 @@ using JT808.Protocol.MessageBody;
 using System;
 using System.Collections.Generic;
 using Xunit;
+using JT808.Protocol.Metadata;
 
 namespace JT808.Protocol.Test.MessageBody
 {
@@ -15,9 +16,9 @@ namespace JT808.Protocol.Test.MessageBody
             JT808_0x8600 jT808_0X8600 = new JT808_0x8600
             {
                 SettingAreaProperty = JT808SettingProperty.追加区域.ToByteValue(),
-                AreaItems = new List<JT808Properties.JT808CircleAreaProperty>()
+                AreaItems = new List<JT808CircleAreaProperty>()
             };
-            jT808_0X8600.AreaItems.Add(new JT808Properties.JT808CircleAreaProperty
+            jT808_0X8600.AreaItems.Add(new JT808CircleAreaProperty
             {
                 AreaId = 1522,
                 AreaProperty = 222,
@@ -29,7 +30,7 @@ namespace JT808.Protocol.Test.MessageBody
                 HighestSpeed = 60,
                 OverspeedDuration = 200
             });
-            jT808_0X8600.AreaItems.Add(new JT808Properties.JT808CircleAreaProperty
+            jT808_0X8600.AreaItems.Add(new JT808CircleAreaProperty
             {
                 AreaId = 1523,
                 AreaProperty = 0,
@@ -41,7 +42,7 @@ namespace JT808.Protocol.Test.MessageBody
                 HighestSpeed = 60,
                 OverspeedDuration = 200
             });
-            jT808_0X8600.AreaItems.Add(new JT808Properties.JT808CircleAreaProperty
+            jT808_0X8600.AreaItems.Add(new JT808CircleAreaProperty
             {
                 AreaId = 1524,
                 AreaProperty = 2211,
