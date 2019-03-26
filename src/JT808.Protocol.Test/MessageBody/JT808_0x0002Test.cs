@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using JT808.Protocol.Extensions;
+using JT808.Protocol.MessageBody;
 
 namespace JT808.Protocol.Test.MessageBodyRequest
 {
@@ -45,6 +46,24 @@ namespace JT808.Protocol.Test.MessageBodyRequest
             Assert.Equal(43, jT808Package.Header.MsgNum);
             Assert.Equal("40021679287", jT808Package.Header.TerminalPhoneNo);
             Assert.Null(jT808Package.Bodies);
+        }
+
+        [Fact]
+        public void Test4()
+        {
+            JT808Package jT808Package = new JT808Package
+            {
+                Header = new JT808Header
+                {
+                    MsgId = Enums.JT808MsgId.终端心跳.ToUInt16Value(),
+                    MsgNum = 10,
+                    TerminalPhoneNo = "12345678900",
+                },
+                Bodies= new JT808_0x0002()
+            };
+            //"7E 00 02 00 00 01 23 45 67 89 00 00 0A 81 7E"
+            var hex = JT808Serializer.Serialize(jT808Package).ToHexString();
+            Assert.Equal("7E00020000012345678900000A817E", hex);
         }
     }
 }

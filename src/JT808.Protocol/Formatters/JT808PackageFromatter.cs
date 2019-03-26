@@ -124,8 +124,11 @@ namespace JT808.Protocol.Formatters
             {
                 if (value.Bodies != null)
                 {
-                    // 4.1 处理数据体
-                    messageBodyOffset = JT808FormatterResolverExtensions.JT808DynamicSerialize(JT808FormatterExtensions.GetFormatter(jT808BodiesImplType), ref bytes, offset, value.Bodies);
+                    if (!value.Bodies.SkipSerialization)
+                    {
+                        // 4.1 处理数据体
+                        messageBodyOffset = JT808FormatterResolverExtensions.JT808DynamicSerialize(JT808FormatterExtensions.GetFormatter(jT808BodiesImplType), ref bytes, offset, value.Bodies);
+                    }
                 }
             }
             byte[] messageBodyBytes = null;

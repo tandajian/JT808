@@ -5,6 +5,6 @@
     /// </summary>
     public class JT808_0x0002 : JT808Bodies
     {
-
+        public override bool SkipSerialization { get; set; } = true;
     }
 }

@@ -5,5 +5,9 @@
     /// </summary>
     public class JT808_0x8107 : JT808Bodies
     {
+        /// <summary>
+        /// 跳过数据体序列化
+        /// </summary>
+        public override bool SkipSerialization { get; set; } = true;
     }
 }
