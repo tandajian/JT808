@@ -9,14 +9,24 @@ namespace JT808.Protocol
     /// </summary>
     public static class JT808Serializer
     {
+
         public static byte[] Serialize(JT808Package jT808Package, int minBufferSize = 1024)
         {
-            return Serialize<JT808Package>(jT808Package, minBufferSize);
+            byte[] buffer = JT808ArrayPool.Rent(minBufferSize);
+            try
+            {
+                var len = JT808FormatterExtensions.Caching.JT808PackageFromatterPool.Serialize(ref buffer, 0, jT808Package);
+                return buffer.AsSpan(0, len).ToArray();
+            }
+            finally
+            {
+                JT808ArrayPool.Return(buffer);
+            }
         }
 
         public static JT808Package Deserialize(ReadOnlySpan<byte> bytes)
         {
-            return Deserialize<JT808Package>(bytes);
+            return JT808FormatterExtensions.Caching.JT808PackageFromatterPool.Deserialize(bytes,out _);
         }
 
         public static byte[] Serialize<T>(T obj, int minBufferSize = 1024)
@@ -37,7 +47,7 @@ namespace JT808.Protocol
         public static T Deserialize<T>(ReadOnlySpan<byte> bytes)
         {
             var formatter = JT808FormatterExtensions.GetFormatter<T>();
-            return formatter.Deserialize(bytes, out int readSize);
+            return formatter.Deserialize(bytes, out _);
         }
 
         /// <summary>
@@ -49,13 +59,13 @@ namespace JT808.Protocol
         public static JT808HeaderPackage HeaderDeserialize(ReadOnlySpan<byte> bytes)
         {
             var formatter = JT808FormatterExtensions.GetFormatter<JT808HeaderPackage>();
-            return formatter.Deserialize(bytes, out int readSize);
+            return formatter.Deserialize(bytes, out _);
         }
 
         public static dynamic Deserialize(ReadOnlySpan<byte> bytes, Type type)
         {
             var formatter = JT808FormatterExtensions.GetFormatter(type);
-            return JT808FormatterResolverExtensions.JT808DynamicDeserialize(formatter, bytes, out int readSize);
+            return JT808FormatterResolverExtensions.JT808DynamicDeserialize(formatter, bytes, out _);
         }
     }
 }

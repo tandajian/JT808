@@ -34,11 +34,11 @@ namespace JT808.Protocol.Formatters
                 }
             }
             jT808Package.Begin = buffer[offset];
-            offset = offset + 1;
+            offset += 1;
             // 3.初始化消息头
             try
             {
-                jT808Package.Header = JT808FormatterExtensions.GetFormatter<JT808Header>().Deserialize(buffer.Slice(offset), out readSize);
+                jT808Package.Header = JT808FormatterExtensions.Caching.JT808HeaderFormatterPool.Deserialize(buffer.Slice(offset), out readSize);
             }
             catch (Exception ex)
             {
@@ -142,12 +142,11 @@ namespace JT808.Protocol.Formatters
             offset += JT808BinaryExtensions.WriteByteLittle(bytes, offset, value.Begin);
             // 2.赋值头数据长度
             value.Header.MessageBodyProperty.DataLength = messageBodyOffset;
-            offset = JT808FormatterExtensions.GetFormatter<JT808Header>().Serialize(ref bytes, offset, value.Header);
+            offset = JT808FormatterExtensions.Caching.JT808HeaderFormatterPool.Serialize(ref bytes, offset, value.Header);
             if (messageBodyOffset != 0)
             {
                 Array.Copy(messageBodyBytes, 0, bytes, offset, messageBodyOffset);
                 offset += messageBodyOffset;
-                messageBodyBytes = null;
             }
             // 4.校验码
             offset += JT808BinaryExtensions.WriteByteLittle(bytes, offset, bytes.ToXor(1, offset));

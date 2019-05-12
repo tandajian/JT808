@@ -55,6 +55,10 @@ namespace JT808.Protocol.MessageBody
         /// </summary>
         public Dictionary<byte, byte[]> JT808CustomLocationAttachOriginalData { get; set; }
         /// <summary>
+        /// 存储未知的附加信息源数据
+        /// </summary>
+        public Dictionary<byte, byte[]> JT808UnknownLocationAttachOriginalData { get; set; }
+        /// <summary>
         /// 自定义位置附加信息
         /// 场景：
         /// 一个设备厂商对应多个设备类型，不同设备类型可能存在相同的自定义位置附加信息Id，导致自定义附加信息Id冲突，无法解析。

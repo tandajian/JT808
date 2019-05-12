@@ -34,6 +34,7 @@ namespace JT808.Protocol.Formatters.MessageBodyFormatters
             // 位置附加信息
             jT808_0X0200.JT808LocationAttachData = new Dictionary<byte, JT808_0x0200_BodyBase>();
             jT808_0X0200.JT808CustomLocationAttachOriginalData = new Dictionary<byte, byte[]>();
+            jT808_0X0200.JT808UnknownLocationAttachOriginalData = new Dictionary<byte, byte[]>();
             if (bytes.Length > 28)
             {
                 int attachOffset = 0;
@@ -45,15 +46,14 @@ namespace JT808.Protocol.Formatters.MessageBodyFormatters
                     int attachLen = 1;
                     try
                     {
-                        Type jT808LocationAttachType;
-                        if (JT808_0x0200_BodyBase.JT808LocationAttachMethod.TryGetValue(locationAttachSpan[attachOffset], out jT808LocationAttachType))
+                        if (JT808_0x0200_BodyBase.JT808LocationAttachMethod.TryGetValue(locationAttachSpan[attachOffset], out Type jT808LocationAttachType))
                         {
                             int attachContentLen = locationAttachSpan[attachOffset + 1];
                             int locationAttachTotalLen = attachId + attachLen + attachContentLen;
                             ReadOnlySpan<byte> attachBuffer = locationAttachSpan.Slice(attachOffset, locationAttachTotalLen);
                             object attachImplObj = JT808FormatterExtensions.GetFormatter(jT808LocationAttachType);
                             dynamic attachImpl = JT808FormatterResolverExtensions.JT808DynamicDeserialize(attachImplObj, attachBuffer, out readSize);
-                            attachOffset = attachOffset + locationAttachTotalLen;
+                            attachOffset += locationAttachTotalLen;
                             jT808_0X0200.JT808LocationAttachData.Add(attachImpl.AttachInfoId, attachImpl);
                         }
                         else if (JT808_0x0200_CustomBodyBase.CustomAttachIds.Contains(locationAttachSpan[attachOffset]))
@@ -62,23 +62,25 @@ namespace JT808.Protocol.Formatters.MessageBodyFormatters
                             int locationAttachTotalLen = attachId + attachLen + attachContentLen;
                             ReadOnlySpan<byte> attachBuffer = locationAttachSpan.Slice(attachOffset, locationAttachTotalLen);
                             jT808_0X0200.JT808CustomLocationAttachOriginalData.Add(locationAttachSpan[attachOffset], attachBuffer.ToArray());
-                            attachOffset = attachOffset + locationAttachTotalLen;
+                            attachOffset += locationAttachTotalLen;
                         }
                         else
                         {
                             int attachContentLen = locationAttachSpan[attachOffset + 1];
                             int locationAttachTotalLen = attachId + attachLen + attachContentLen;
-                            attachOffset = attachOffset + locationAttachTotalLen;
+                            ReadOnlySpan<byte> attachBuffer = locationAttachSpan.Slice(attachOffset, locationAttachTotalLen);
+                            jT808_0X0200.JT808UnknownLocationAttachOriginalData.Add(locationAttachSpan[attachOffset], attachBuffer.ToArray());
+                            attachOffset += locationAttachTotalLen;
                         }
                     }
-                    catch (Exception)
+                    catch
                     {
                         int attachContentLen = locationAttachSpan[attachOffset + 1];
                         int locationAttachTotalLen = attachId + attachLen + attachContentLen;
-                        attachOffset = attachOffset + locationAttachTotalLen;
+                        attachOffset += locationAttachTotalLen;
                     }
                 }
-                offset = offset + attachOffset;
+                offset += attachOffset;
             }
             readSize = offset;
             return jT808_0X0200;
@@ -103,7 +105,7 @@ namespace JT808.Protocol.Formatters.MessageBodyFormatters
                         object attachImplObj = JT808FormatterExtensions.GetFormatter(item.Value.GetType());
                         offset = JT808FormatterResolverExtensions.JT808DynamicSerialize(attachImplObj, ref bytes, offset, item.Value);
                     }
-                    catch (Exception)
+                    catch
                     {
 
                     }
@@ -118,7 +120,7 @@ namespace JT808.Protocol.Formatters.MessageBodyFormatters
                         object attachImplObj = JT808FormatterExtensions.GetFormatter(item.Value.GetType());
                         offset = JT808FormatterResolverExtensions.JT808DynamicSerialize(attachImplObj, ref bytes, offset, item.Value);
                     }
-                    catch (Exception)
+                    catch
                     {
 
                     }

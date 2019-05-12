@@ -2,7 +2,7 @@
 
 namespace JT808.Protocol.Extensions
 {
-    public static class JT808PackageExtensions
+    public static partial class JT808PackageExtensions
     {
         public static JT808Package Create<TJT808Bodies>(this JT808MsgId msgId, string terminalPhoneNo, TJT808Bodies bodies)
             where TJT808Bodies : JT808Bodies

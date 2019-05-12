@@ -68,7 +68,7 @@ namespace JT808.Protocol.Benchmark
         {
             for (int i = 0; i < N; i++)
             {
-                var result = JT808Serializer.Deserialize<JT808Package>(bytes);
+                var result = JT808Serializer.Deserialize(bytes);
             }
         }
     }

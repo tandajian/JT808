@@ -253,29 +253,29 @@ JT808GlobalConfig.Instance
 
 ``` ini
 
-BenchmarkDotNet=v0.11.3, OS=Windows 10.0.17134.472 (1803/April2018Update/Redstone4)
+BenchmarkDotNet=v0.11.5, OS=Windows 10.0.17763.379 (1809/October2018Update/Redstone5)
 Intel Core i7-8700K CPU 3.70GHz (Coffee Lake), 1 CPU, 12 logical and 6 physical cores
-  [Host]     : .NET Framework 4.7.2 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3260.0
-  Job-FVMQGI : .NET Framework 4.7.2 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3260.0
-  Job-LGLQDK : .NET Core 2.2.1 (CoreCLR 4.6.27207.03, CoreFX 4.6.27207.03), 64bit RyuJIT
+  [Host]     : .NET Framework 4.7.2 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3362.0
+  Job-FVMQGI : .NET Framework 4.7.2 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3362.0
+  Job-LGLQDK : .NET Core 2.2.4 (CoreCLR 4.6.27521.02, CoreFX 4.6.27521.01), 64bit RyuJIT
 
 Platform=AnyCpu  Runtime=Clr  Server=False  
 
 ```
-|            Method |     Toolchain |      N |         Mean |      Error |     StdDev | Gen 0/1k Op | Gen 1/1k Op | Gen 2/1k Op | Allocated Memory/Op |
-|------------------ |-------------- |------- |-------------:|-----------:|-----------:|------------:|------------:|------------:|--------------------:|
-|   **0x0200Serialize** |       **Default** |    **100** |     **3.199 ms** |  **0.0417 ms** |  **0.0390 ms** |     **74.2188** |           **-** |           **-** |           **475.79 KB** |
-| 0x0200Deserialize |       Default |    100 |     3.007 ms |  0.0379 ms |  0.0355 ms |     78.1250 |           - |           - |           501.57 KB |
-|   0x0200Serialize | .NET Core 2.2 |    100 |     2.507 ms |  0.0157 ms |  0.0139 ms |     66.4063 |           - |           - |           424.22 KB |
-| 0x0200Deserialize | .NET Core 2.2 |    100 |     2.423 ms |  0.0483 ms |  0.0645 ms |     70.3125 |           - |           - |           442.97 KB |
-|   **0x0200Serialize** |       **Default** |  **10000** |   **317.658 ms** |  **5.1248 ms** |  **4.7937 ms** |   **7000.0000** |           **-** |           **-** |         **47584.41 KB** |
-| 0x0200Deserialize |       Default |  10000 |   302.344 ms |  5.7195 ms |  5.6174 ms |   8000.0000 |           - |           - |         50160.67 KB |
-|   0x0200Serialize | .NET Core 2.2 |  10000 |   251.612 ms |  3.2408 ms |  2.7062 ms |   6000.0000 |           - |           - |         42421.88 KB |
-| 0x0200Deserialize | .NET Core 2.2 |  10000 |   234.793 ms |  2.5215 ms |  2.2352 ms |   7000.0000 |           - |           - |         44296.88 KB |
-|   **0x0200Serialize** |       **Default** | **100000** | **3,228.227 ms** | **26.2990 ms** | **23.3134 ms** |  **77000.0000** |           **-** |           **-** |         **475789.2 KB** |
-| 0x0200Deserialize |       Default | 100000 | 2,999.779 ms | 27.0077 ms | 23.9416 ms |  81000.0000 |           - |           - |        501566.45 KB |
-|   0x0200Serialize | .NET Core 2.2 | 100000 | 2,541.111 ms | 20.8916 ms | 18.5199 ms |  69000.0000 |           - |           - |        424218.75 KB |
-| 0x0200Deserialize | .NET Core 2.2 | 100000 | 2,350.114 ms | 11.5168 ms | 10.2093 ms |  72000.0000 |           - |           - |        442968.75 KB |
+|            Method |     Toolchain |      N |         Mean |     Error |    StdDev |      Gen 0 | Gen 1 | Gen 2 |    Allocated |
+|------------------ |-------------- |------- |-------------:|----------:|----------:|-----------:|------:|------:|-------------:|
+|   **0x0200Serialize** |       **Default** |    **100** |     **2.335 ms** | **0.0403 ms** | **0.0377 ms** |    **66.4063** |     **-** |     **-** |    **423.44 KB** |
+| 0x0200Deserialize |       Default |    100 |     2.119 ms | 0.0142 ms | 0.0126 ms |    74.2188 |     - |     - |    457.04 KB |
+|   0x0200Serialize | .NET Core 2.2 |    100 |     1.862 ms | 0.0202 ms | 0.0189 ms |    62.5000 |     - |     - |    388.28 KB |
+| 0x0200Deserialize | .NET Core 2.2 |    100 |     1.667 ms | 0.0057 ms | 0.0051 ms |    66.4063 |     - |     - |    414.84 KB |
+|   **0x0200Serialize** |       **Default** |  **10000** |   **232.736 ms** | **2.1312 ms** | **1.9935 ms** |  **6666.6667** |     **-** |     **-** |  **42344.68 KB** |
+| 0x0200Deserialize |       Default |  10000 |   215.789 ms | 1.3911 ms | 1.3012 ms |  7333.3333 |     - |     - |  45704.48 KB |
+|   0x0200Serialize | .NET Core 2.2 |  10000 |   183.735 ms | 5.2555 ms | 5.1616 ms |  6000.0000 |     - |     - |  38828.13 KB |
+| 0x0200Deserialize | .NET Core 2.2 |  10000 |   167.677 ms | 1.0896 ms | 1.0192 ms |  6666.6667 |     - |     - |  41484.38 KB |
+|   **0x0200Serialize** |       **Default** | **100000** | **2,261.013 ms** | **6.7745 ms** | **6.3369 ms** | **68000.0000** |     **-** |     **-** | **423446.91 KB** |
+| 0x0200Deserialize |       Default | 100000 | 2,112.304 ms | 8.7634 ms | 8.1973 ms | 74000.0000 |     - |     - | 457037.03 KB |
+|   0x0200Serialize | .NET Core 2.2 | 100000 | 1,851.732 ms | 8.0349 ms | 7.5159 ms | 63000.0000 |     - |     - | 388281.25 KB |
+| 0x0200Deserialize | .NET Core 2.2 | 100000 | 1,689.993 ms | 8.8031 ms | 7.8037 ms | 67000.0000 |     - |     - | 414843.75 KB |
 
 ## JT808终端通讯协议消息对照表
 

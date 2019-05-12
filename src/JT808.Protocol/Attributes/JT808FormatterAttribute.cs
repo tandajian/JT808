@@ -9,17 +9,9 @@ namespace JT808.Protocol.Attributes
     {
         public Type FormatterType { get; private set; }
 
-        public object[] Arguments { get; private set; }
-
         public JT808FormatterAttribute(Type formatterType)
         {
             this.FormatterType = formatterType;
-        }
-
-        public JT808FormatterAttribute(Type formatterType, params object[] arguments)
-        {
-            this.FormatterType = formatterType;
-            this.Arguments = arguments;
         }
     }
 }

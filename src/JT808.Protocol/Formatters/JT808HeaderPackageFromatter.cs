@@ -30,11 +30,11 @@ namespace JT808.Protocol.Formatters
                     throw new JT808Exception(JT808ErrorCode.CheckCodeNotEqual, $"{checkCode1}!={checkCode2}");
                 }
             }
-            offset = offset + 1;
+            offset += 1;
             // 3.初始化消息头
             try
             {
-                jT808HeaderPackage.Header = JT808FormatterExtensions.GetFormatter<JT808Header>().Deserialize(buffer.Slice(offset, 13), out readSize);
+                jT808HeaderPackage.Header = JT808FormatterExtensions.Caching.JT808HeaderFormatterPool.Deserialize(buffer.Slice(offset, 13), out readSize);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,6 @@ namespace JT808.Protocol.Formatters
                     }
                 }
             }
-            offset = readSize;
             readSize = buffer.Length;
             return jT808HeaderPackage;
         }

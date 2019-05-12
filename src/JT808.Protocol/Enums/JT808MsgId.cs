@@ -180,7 +180,7 @@ namespace JT808.Protocol.Enums
         /// 事件报告
         /// 0x0301
         /// </summary>
-        [JT808BodiesType(typeof(JT808_0x8301))]
+        [JT808BodiesType(typeof(JT808_0x0301))]
         [JT808MsgIdDescription("0x0301", "事件报告")]
         事件报告 = 0x0301,
         /// <summary>
@@ -209,7 +209,7 @@ namespace JT808.Protocol.Enums
         /// 0x0303
         /// </summary>
         [JT808BodiesType(typeof(JT808_0x0303))]
-        [JT808MsgIdDescription("0x0303", "信息点播/取消")]
+        [JT808MsgIdDescription("0x0303", "信息点播或取消")]
         信息点播_取消 = 0x0303,
         /// <summary>
         /// 信息服务
