@@ -11,32 +11,37 @@ using System.Collections.Generic;
 namespace JT808.Protocol.Benchmark
 {
     [Config(typeof(JT808SerializerConfig))]
+    [MarkdownExporterAttribute.GitHub]
     [MemoryDiagnoser]
     public class JT808SerializerContext
     {
-        private byte[] bytes;
+        private byte[] bytes0x0200;
+        private byte[] bytes0x0100;
 
         [Params(100, 10000, 100000)]
         public int N;
 
-        private ushort MsgId;
+        private ushort MsgId0x0200;
+        private ushort MsgId0x0100;
 
         [GlobalSetup]
         public void Setup()
         {
-            bytes = "7E 02 00 00 26 11 22 33 44 55 66 22 B8 00 00 00 01 00 00 00 02 00 BA 7F 0E 07 E4 F1 1C 00 28 00 3C 00 00 18 07 15 10 10 10 01 04 00 00 00 64 02 02 00 37 57 7E".ToHexBytes();
-            MsgId = (ushort)Enums.JT808MsgId.位置信息汇报.ToValue();
+            bytes0x0200 = "7E0200005C11223344556622B8000000010000000200BA7F0E07E4F11C0028003C00001807151010100104000000640202003703020038040200011105010000000112060100000001011307000000020022012504000000172A0200F42B04000000F2300102310105167E".ToHexBytes();
+            MsgId0x0200 = Enums.JT808MsgId.位置信息汇报.ToUInt16Value();
+            MsgId0x0100 = Enums.JT808MsgId.终端注册.ToUInt16Value();
+            bytes0x0100 = "7E 01 00 00 2D 00 01 23 45 67 89 00 0A 00 28 00 32 31 32 33 34 30 73 6D 61 6C 6C 63 68 69 31 32 33 30 30 30 30 30 30 30 30 30 43 48 49 31 32 33 30 01 D4 C1 41 31 32 33 34 35 BA 7E".ToHexBytes();
         }
 
-        [Benchmark(Description = "0x0200Serialize")]
-        public void TestJT808_0x0200()
+        [Benchmark(Description = "0x0200_All_AttachId_Serialize")]
+        public void TestJT808_0x0200_All_AttachId_Serialize()
         {
             for (int i = 0; i < N; i++)
             {
                 JT808Package jT808Package = new JT808Package();
                 jT808Package.Header = new JT808Header
                 {
-                    MsgId = MsgId,
+                    MsgId = MsgId0x0200,
                     MsgNum = 8888,
                     TerminalPhoneNo = "112233445566",
                 };
@@ -58,17 +63,96 @@ namespace JT808.Protocol.Benchmark
                 {
                     Oil = 55
                 });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x03, new JT808_0x0200_0x03
+                {
+                     Speed=56
+                });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x04, new JT808_0x0200_0x04
+                {
+                     EventId=1
+                });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x11, new JT808_0x0200_0x11
+                {
+                     AreaId=1,
+                     JT808PositionType= Enums.JT808PositionType.圆形区域
+                });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x12, new JT808_0x0200_0x12
+                {
+                    AreaId = 1,
+                    JT808PositionType = Enums.JT808PositionType.圆形区域,
+                    Direction= Enums.JT808DirectionType.出
+                });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x13, new JT808_0x0200_0x13
+                {
+                     DrivenRoute= Enums.JT808DrivenRouteType.过长,
+                     DrivenRouteId=2,
+                     Time=34
+                });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x25, new JT808_0x0200_0x25
+                {
+                     CarSignalStatus=23
+                });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x2A, new JT808_0x0200_0x2A
+                {
+                    IOStatus=244
+                });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x2B, new JT808_0x0200_0x2B
+                {
+                     Analog = 242
+                });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x30, new JT808_0x0200_0x30
+                {
+                     WiFiSignalStrength=0x02
+                });
+                jT808UploadLocationRequest.JT808LocationAttachData.Add(JT808_0x0200_BodyBase.AttachId0x31, new JT808_0x0200_0x31
+                {
+                     GNSSCount=0x05
+                });
                 jT808Package.Bodies = jT808UploadLocationRequest;
                 var result = JT808Serializer.Serialize(jT808Package);
             }
         }
 
-        [Benchmark(Description = "0x0200Deserialize")]
-        public void TestJT808_0x02001()
+        [Benchmark(Description = "0x0200_All_AttachId_Deserialize")]
+        public void TestJT808_0x0200_Deserialize()
         {
             for (int i = 0; i < N; i++)
             {
-                var result = JT808Serializer.Deserialize(bytes);
+                var result = JT808Serializer.Deserialize(bytes0x0200);
+            }
+        }
+
+        [Benchmark(Description = "0x0100Serialize")]
+        public void TestJT808_0x0100_Serialize()
+        {
+            for (int i = 0; i < N; i++)
+            {
+                JT808Package jT808Package = new JT808Package();
+                jT808Package.Header = new JT808Header
+                {
+                    MsgId = MsgId0x0100,
+                    MsgNum = (ushort)(i + 1),
+                    TerminalPhoneNo = "112233445566",
+                };
+                JT808_0x0100 jT808_0X0100 = new JT808_0x0100();
+                jT808_0X0100.AreaID = 12345;
+                jT808_0X0100.CityOrCountyId = 23454;
+                jT808_0X0100.PlateColor = 0x02;
+                jT808_0X0100.PlateNo = "测A123456";
+                jT808_0X0100.TerminalId = "1234567";
+                jT808_0X0100.TerminalModel = "1234567890000";
+                jT808_0X0100.MakerId = "12345";
+                jT808Package.Bodies = jT808_0X0100;
+                var result = JT808Serializer.Serialize(jT808Package);
+            }
+        }
+
+        [Benchmark(Description = "0x0100Deserialize")]
+        public void TestJT808_0x0100_Deserialize()
+        {
+            for (int i = 0; i < N; i++)
+            {
+                var result = JT808Serializer.Deserialize(bytes0x0100);
             }
         }
     }

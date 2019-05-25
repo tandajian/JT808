@@ -23,7 +23,7 @@ namespace JT808.Protocol.Formatters.MessageBodyFormatters
         public int Serialize(ref byte[] bytes, int offset, JT808_0x0001 value)
         {
             offset += JT808BinaryExtensions.WriteUInt16Little(bytes, offset, value.MsgNum);
-            offset += JT808BinaryExtensions.WriteUInt16Little(bytes, offset, (ushort)value.MsgId);
+            offset += JT808BinaryExtensions.WriteUInt16Little(bytes, offset, value.MsgId);
             offset += JT808BinaryExtensions.WriteByteLittle(bytes, offset, (byte)value.JT808TerminalResult);
             return offset;
         }

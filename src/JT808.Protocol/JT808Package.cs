@@ -6,7 +6,7 @@ namespace JT808.Protocol
     /// <summary>
     /// JT808数据包
     /// </summary>
-    [JT808Formatter(typeof(JT808PackageFromatter))]
+    [JT808Formatter(typeof(JT808PackageFormatter))]
     public class JT808Package
     {
         /// <summary>

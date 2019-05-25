@@ -10,7 +10,7 @@ namespace JT808.Protocol
 {
     public class JT808GlobalConfig
     {
-        private static readonly Lazy<JT808GlobalConfig> instance = new Lazy<JT808GlobalConfig>(() => new JT808GlobalConfig());
+        public static readonly JT808GlobalConfig Instance = new JT808GlobalConfig();
 
         private JT808GlobalConfig()
         {
@@ -19,6 +19,7 @@ namespace JT808.Protocol
             Compress = new JT808GZipCompressImpl();
             SplitPackageStrategy = new DefaultSplitPackageStrategyImpl();
             SkipCRCCode = false;
+            MsgIdFactory = new JT808MsgIdFactory();
             Encoding = Encoding.GetEncoding("GBK");
         }
 
@@ -28,13 +29,7 @@ namespace JT808.Protocol
 
         public ISplitPackageStrategy SplitPackageStrategy { get; private set; }
 
-        public static JT808GlobalConfig Instance
-        {
-            get
-            {
-                return instance.Value;
-            }
-        }
+        public IJT808MsgIdFactory MsgIdFactory { get; private set; }
 
         public Encoding Encoding;
 
@@ -61,7 +56,7 @@ namespace JT808.Protocol
                     }
                 }
             }
-            return instance.Value;
+            return this;
         }
 
         /// <summary>
@@ -72,20 +67,7 @@ namespace JT808.Protocol
         public JT808GlobalConfig Register_0x8103_ParamId(uint paramId, Type type)
         {
             JT808_0x8103_BodyBase.AddJT808_0x8103Method(paramId, type);
-            return instance.Value;
-        }
-
-        /// <summary>
-        /// 注册自定义消息
-        /// </summary>
-        /// <typeparam name="TJT808Bodies"></typeparam>
-        /// <param name="msgId"></param>
-        /// <returns></returns>
-        public JT808GlobalConfig Register_CustomMsgId<TJT808Bodies>(ushort customMsgId)
-               where TJT808Bodies : JT808Bodies
-        {
-            JT808MsgIdFactory.SetMap<TJT808Bodies>(customMsgId);
-            return instance.Value;
+            return this;
         }
 
         /// <summary>
@@ -97,20 +79,7 @@ namespace JT808.Protocol
                where TJT808_0x0701Body : JT808_0x0701.JT808_0x0701Body
         {
             JT808_0x0701.JT808_0x0701Body.BodyImpl = typeof(TJT808_0x0701Body);
-            return instance.Value;
-        }
-
-        /// <summary>
-        /// 重写消息
-        /// </summary>
-        /// <typeparam name="TJT808Bodies"></typeparam>
-        /// <param name="overwriteMsgId"></param>
-        /// <returns></returns>
-        public JT808GlobalConfig Overwrite_MsgId<TJT808Bodies>(ushort overwriteMsgId)
-               where TJT808Bodies : JT808Bodies
-        {
-            JT808MsgIdFactory.ReplaceMap<TJT808Bodies>(overwriteMsgId);
-            return instance.Value;
+            return this;
         }
 
         /// <summary>
@@ -120,8 +89,8 @@ namespace JT808.Protocol
         /// <returns></returns>
         public JT808GlobalConfig SetMsgSNDistributed(IMsgSNDistributed msgSNDistributed)
         {
-            instance.Value.MsgSNDistributed = msgSNDistributed;
-            return instance.Value;
+            Instance.MsgSNDistributed = msgSNDistributed;
+            return this;
         }
 
         /// <summary>
@@ -132,8 +101,8 @@ namespace JT808.Protocol
         /// <returns></returns>
         public JT808GlobalConfig SetCompress(IJT808ICompress compressImpl)
         {
-            instance.Value.Compress = compressImpl;
-            return instance.Value;
+            Instance.Compress = compressImpl;
+            return this;
         }
         /// <summary>
         /// 设置分包算法
@@ -143,8 +112,8 @@ namespace JT808.Protocol
         /// <returns></returns>
         public JT808GlobalConfig SetSplitPackageStrategy(ISplitPackageStrategy splitPackageStrategy)
         {
-            instance.Value.SplitPackageStrategy = splitPackageStrategy;
-            return instance.Value;
+            Instance.SplitPackageStrategy = splitPackageStrategy;
+            return this;
         }
         /// <summary>
         /// 设置跳过校验码
@@ -154,8 +123,22 @@ namespace JT808.Protocol
         /// <returns></returns>
         public JT808GlobalConfig SetSkipCRCCode(bool skipCRCCode)
         {
-            instance.Value.SkipCRCCode = skipCRCCode;
-            return instance.Value;
+            Instance.SkipCRCCode = skipCRCCode;
+            return this;
         }
+        /// <summary>
+        /// 设置消息工厂的实现
+        /// </summary>
+        /// <param name="msgIdFactory"></param>
+        /// <returns></returns>
+        public JT808GlobalConfig SetMsgIdFactory(IJT808MsgIdFactory  msgIdFactory)
+        {
+            if (msgIdFactory != null)
+            {
+                Instance.MsgIdFactory = msgIdFactory;
+            }
+            return this;
+        }
+
     }
 }

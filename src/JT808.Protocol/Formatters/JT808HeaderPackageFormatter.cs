@@ -6,7 +6,7 @@ using System;
 
 namespace JT808.Protocol.Formatters
 {
-    public class JT808HeaderPackageFromatter : IJT808Formatter<JT808HeaderPackage>
+    public class JT808HeaderPackageFormatter : IJT808Formatter<JT808HeaderPackage>
     {
         public JT808HeaderPackage Deserialize(ReadOnlySpan<byte> bytes, out int readSize)
         {
@@ -34,7 +34,7 @@ namespace JT808.Protocol.Formatters
             // 3.初始化消息头
             try
             {
-                jT808HeaderPackage.Header = JT808FormatterExtensions.Caching.JT808HeaderFormatterPool.Deserialize(buffer.Slice(offset, 13), out readSize);
+                jT808HeaderPackage.Header = JT808FormatterExtensions.GetFormatter<JT808Header>().Deserialize(buffer.Slice(offset), out readSize);
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace JT808.Protocol.Formatters
             offset = readSize;
             if (jT808HeaderPackage.Header.MessageBodyProperty.DataLength != 0)
             {
-                Type jT808BodiesImplType = JT808MsgIdFactory.GetBodiesImplTypeByMsgId(jT808HeaderPackage.Header.MsgId);
+                Type jT808BodiesImplType = JT808GlobalConfig.Instance.MsgIdFactory.GetBodiesImplTypeByMsgId(jT808HeaderPackage.Header.MsgId, jT808HeaderPackage.Header.TerminalPhoneNo);
                 if (jT808BodiesImplType != null)
                 {
                     if (jT808HeaderPackage.Header.MessageBodyProperty.IsPackge)

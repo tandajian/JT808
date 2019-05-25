@@ -12,7 +12,7 @@ namespace JT808.Protocol.Formatters.MessageBodyFormatters
             JT808_0x0201 jT808_0X0201 = new JT808_0x0201
             {
                 MsgNum = JT808BinaryExtensions.ReadUInt16Little(bytes, ref offset),
-                Position = JT808FormatterExtensions.GetFormatter<JT808_0x0200>().Deserialize(bytes.Slice(offset), out readSize)
+                Position = JT808FormatterExtensions.GetFormatter<JT808_0x0200>().Deserialize(bytes.Slice(offset), out _)
             };
             readSize = offset;
             return jT808_0X0201;

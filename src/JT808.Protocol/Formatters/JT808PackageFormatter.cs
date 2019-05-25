@@ -9,7 +9,7 @@ namespace JT808.Protocol.Formatters
     /// <summary>
     /// JT808包序列化器
     /// </summary>
-    public class JT808PackageFromatter : IJT808Formatter<JT808Package>
+    public class JT808PackageFormatter : IJT808Formatter<JT808Package>
     {
         public JT808Package Deserialize(ReadOnlySpan<byte> bytes, out int readSize)
         {
@@ -38,7 +38,7 @@ namespace JT808.Protocol.Formatters
             // 3.初始化消息头
             try
             {
-                jT808Package.Header = JT808FormatterExtensions.Caching.JT808HeaderFormatterPool.Deserialize(buffer.Slice(offset), out readSize);
+                jT808Package.Header = JT808FormatterExtensions.GetFormatter<JT808Header>().Deserialize(buffer.Slice(offset), out readSize);
             }
             catch (Exception ex)
             {
@@ -47,7 +47,7 @@ namespace JT808.Protocol.Formatters
             offset = readSize;
             if (jT808Package.Header.MessageBodyProperty.DataLength != 0)
             {
-                Type jT808BodiesImplType = JT808MsgIdFactory.GetBodiesImplTypeByMsgId(jT808Package.Header.MsgId);
+                Type jT808BodiesImplType = JT808GlobalConfig.Instance.MsgIdFactory.GetBodiesImplTypeByMsgId(jT808Package.Header.MsgId,jT808Package.Header.TerminalPhoneNo);
                 if (jT808BodiesImplType != null)
                 {
                     //4.分包消息体 从17位开始  或   未分包消息体 从13位开始
@@ -119,7 +119,7 @@ namespace JT808.Protocol.Formatters
                 messageBodyOffset += JT808BinaryExtensions.WriteUInt16Little(bytes, messageBodyOffset, value.Header.MessageBodyProperty.PackageIndex);
             }
             // 4. 数据体 
-            Type jT808BodiesImplType = JT808MsgIdFactory.GetBodiesImplTypeByMsgId(value.Header.MsgId);
+            Type jT808BodiesImplType = JT808GlobalConfig.Instance.MsgIdFactory.GetBodiesImplTypeByMsgId(value.Header.MsgId, value.Header.TerminalPhoneNo);
             if (jT808BodiesImplType != null)
             {
                 if (value.Bodies != null)
@@ -142,7 +142,7 @@ namespace JT808.Protocol.Formatters
             offset += JT808BinaryExtensions.WriteByteLittle(bytes, offset, value.Begin);
             // 2.赋值头数据长度
             value.Header.MessageBodyProperty.DataLength = messageBodyOffset;
-            offset = JT808FormatterExtensions.Caching.JT808HeaderFormatterPool.Serialize(ref bytes, offset, value.Header);
+            offset = JT808FormatterExtensions.GetFormatter<JT808Header>().Serialize(ref bytes, offset, value.Header);
             if (messageBodyOffset != 0)
             {
                 Array.Copy(messageBodyBytes, 0, bytes, offset, messageBodyOffset);

@@ -15,7 +15,7 @@ namespace JT808.Protocol
             byte[] buffer = JT808ArrayPool.Rent(minBufferSize);
             try
             {
-                var len = JT808FormatterExtensions.Caching.JT808PackageFromatterPool.Serialize(ref buffer, 0, jT808Package);
+                var len = JT808FormatterExtensions.GetFormatter<JT808Package>().Serialize(ref buffer, 0, jT808Package);
                 return buffer.AsSpan(0, len).ToArray();
             }
             finally
@@ -26,7 +26,7 @@ namespace JT808.Protocol
 
         public static JT808Package Deserialize(ReadOnlySpan<byte> bytes)
         {
-            return JT808FormatterExtensions.Caching.JT808PackageFromatterPool.Deserialize(bytes,out _);
+            return JT808FormatterExtensions.GetFormatter<JT808Package>().Deserialize(bytes,out _);
         }
 
         public static byte[] Serialize<T>(T obj, int minBufferSize = 1024)

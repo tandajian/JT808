@@ -20,7 +20,7 @@ namespace JT808.Protocol.Extensions
         /// <returns></returns>
         public static DateTime ReadDateTime6Little(ReadOnlySpan<byte> buf, ref int offset, string format = "X2")
         {
-            DateTime d = UTCBaseTime;
+            DateTime d;
             try
             {
                 int year = Convert.ToInt32(buf[offset].ToString(format)) + DateLimitYear;
@@ -35,7 +35,7 @@ namespace JT808.Protocol.Extensions
             {
                 d = UTCBaseTime;
             }
-            offset = offset + 6;
+            offset += 6;
             return d;
         }
 
@@ -48,7 +48,7 @@ namespace JT808.Protocol.Extensions
         /// <returns></returns>
         public static DateTime ReadDateTime4Little(ReadOnlySpan<byte> buf, ref int offset, string format = "X2")
         {
-            DateTime d = UTCBaseTime;
+            DateTime d;
             try
             {
                 d = new DateTime(
@@ -60,7 +60,7 @@ namespace JT808.Protocol.Extensions
             {
                 d = UTCBaseTime;
             }
-            offset = offset + 4;
+            offset += 4;
             return d;
         }
 
@@ -94,7 +94,7 @@ namespace JT808.Protocol.Extensions
                 Convert.ToInt32(buf[offset + 1].ToString(format)),
                 Convert.ToInt32(buf[offset + 2].ToString(format)),
                 ((buf[offset + 3] << 8) + buf[offset + 4]));
-            offset = offset + 5;
+            offset += 5;
             return dateTime;
         }
 
@@ -105,7 +105,7 @@ namespace JT808.Protocol.Extensions
             for (int i = 7; i >= 0; i--)
             {
                 bytes[offset + i] = (byte)(totalSecends & 0xFF);  //取低8位
-                totalSecends = totalSecends >> 8;
+                totalSecends >>= 8;
             }
             return 8;
         }
