@@ -9,7 +9,6 @@ namespace JT808.Protocol
     /// </summary>
     public static class JT808Serializer
     {
-
         public static byte[] Serialize(JT808Package jT808Package, int minBufferSize = 1024)
         {
             byte[] buffer = JT808ArrayPool.Rent(minBufferSize);

@@ -14,5 +14,11 @@ namespace JT808.Protocol.Test
             var data1 = JT808GlobalConfig.Instance.Compress.Compress(data);
             Assert.True(data.Length > data1.Length);
         }
+
+        [Fact]
+        public void Test2()
+        { 
+            var data1 = JT808GlobalConfig.Instance.FormatterFactory.FormatterDict;
+        }
     }
 }

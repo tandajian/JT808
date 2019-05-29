@@ -120,6 +120,7 @@ namespace JT808.Protocol.Test.MessageBodyRequest
         [Fact]
         public void Test3()
         {
+
             //00 00 00 01 
             //00 00 00 02 
             //00 BA 7F 0E 

@@ -11,22 +11,15 @@ namespace JT808.Protocol.Extensions
 {
     public static class JT808FormatterExtensions
     {
-        private static readonly ConcurrentDictionary<Guid, object> formatterCache = new ConcurrentDictionary<Guid, object>();
         public static IJT808Formatter<T> GetFormatter<T>()
         {
             return (IJT808Formatter<T>)GetFormatter(typeof(T)); 
         }
         public static object GetFormatter(Type type)
         {
-            if (!formatterCache.TryGetValue(type.GUID, out var formatter))
+            if (!JT808GlobalConfig.Instance.FormatterFactory.FormatterDict.TryGetValue(type.GUID, out var formatter))
             {
-                var attr = type.GetTypeInfo().GetCustomAttribute<JT808FormatterAttribute>();
-                if (attr == null)
-                {
-                    throw new JT808Exception(JT808ErrorCode.GetFormatterAttributeError, type.FullName);
-                }
-                formatter = Activator.CreateInstance(attr.FormatterType);
-                formatterCache.TryAdd(type.GUID, formatter);
+                throw new JT808Exception(JT808ErrorCode.NotGlobalRegisterFormatterAssembly, type.FullName);
             }
             return formatter;
         }

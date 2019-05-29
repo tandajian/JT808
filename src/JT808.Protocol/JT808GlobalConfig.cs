@@ -1,4 +1,5 @@
-﻿using JT808.Protocol.Internal;
+﻿using JT808.Protocol.Formatters;
+using JT808.Protocol.Internal;
 using JT808.Protocol.MessageBody;
 using System;
 using System.Runtime.CompilerServices;
@@ -12,7 +13,7 @@ namespace JT808.Protocol
     {
         public static readonly JT808GlobalConfig Instance = new JT808GlobalConfig();
 
-        private JT808GlobalConfig()
+        public JT808GlobalConfig()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             MsgSNDistributed = new DefaultMsgSNDistributedImpl();
@@ -21,6 +22,7 @@ namespace JT808.Protocol
             SkipCRCCode = false;
             MsgIdFactory = new JT808MsgIdFactory();
             Encoding = Encoding.GetEncoding("GBK");
+            FormatterFactory = new JT808FormatterFactory();
         }
 
         public IMsgSNDistributed MsgSNDistributed { get; private set; }
@@ -32,6 +34,8 @@ namespace JT808.Protocol
         public IJT808MsgIdFactory MsgIdFactory { get; private set; }
 
         public Encoding Encoding;
+
+        internal IJT808FormatterFactory FormatterFactory { get; }
 
         /// <summary>
         /// 跳过校验码

@@ -27,6 +27,11 @@
         /// <summary>
         /// 长度不够
         /// </summary>
-        NotEnoughLength = 1007
+        NotEnoughLength = 1007,
+        /// <summary>
+        /// 没有全局注册格式化器
+        /// <see cref="JT808.Protocol.Formatters.IJT808Formatter<T>"/>
+        /// </summary>
+        NotGlobalRegisterFormatterAssembly = 1008,
     }
 }
