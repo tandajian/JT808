@@ -197,13 +197,12 @@ var hex = data.ToHexString();
 ``` config
 // 全局配置
 JT808GlobalConfig.Instance
-    // 注册自定义位置附加信息
-    .Register_0x0200_Attach(0x06)
+    //注册自定义消息
+    .Register(Assembly.GetCallingAssembly())
+    //.SplitPackageStrategy(//todo 实现ISplitPackageStrategy分包策略)
+    //.SetCompress(//todo 实现IJT808ICompress压缩算法)
+    //.SetMsgIdFactory(//todo 实现IJT808MsgIdFactory消息工厂)
     //.SetMsgSNDistributed(//todo 实现IMsgSNDistributed消息流水号)
-    // 注册自定义数据上行透传信息
-    //.Register_0x0900_Ext<>(//todo 继承自JT808_0x0900_BodyBase类)
-    // 注册自定义数据下行透传信息
-    //.Register_0x8900_Ext<>(//todo 继承自JT808_0x8900_BodyBase类)
     // 跳过校验码验证
     .SetSkipCRCCode(true);
 ```
@@ -257,37 +256,37 @@ BenchmarkDotNet=v0.11.5, OS=Windows 10.0.17763.379 (1809/October2018Update/Redst
 Intel Core i7-8700K CPU 3.70GHz (Coffee Lake), 1 CPU, 12 logical and 6 physical cores
   [Host]     : .NET Framework 4.7.2 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3362.0
   Job-FVMQGI : .NET Framework 4.7.2 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3362.0
-  Job-LGLQDK : .NET Core 2.2.4 (CoreCLR 4.6.27521.02, CoreFX 4.6.27521.01), 64bit RyuJIT
+  Job-LGLQDK : .NET Core 2.2.5 (CoreCLR 4.6.27617.05, CoreFX 4.6.27618.01), 64bit RyuJIT
 
 Platform=AnyCpu  Runtime=Clr  Server=False  
 
 ```
-|                          Method |     Toolchain |      N |           Mean |         Error |        StdDev |       Gen 0 | Gen 1 | Gen 2 |    Allocated |
-|-------------------------------- |-------------- |------- |---------------:|--------------:|--------------:|------------:|------:|------:|-------------:|
-|   **0x0200_All_AttachId_Serialize** |       **Default** |    **100** |     **4,323.1 us** |     **14.598 us** |     **13.655 us** |    **101.5625** |     **-** |     **-** |    **655.89 KB** |
-| 0x0200_All_AttachId_Deserialize |       Default |    100 |     4,052.9 us |     29.073 us |     25.772 us |    101.5625 |     - |     - |    663.33 KB |
-|                 0x0100Serialize |       Default |    100 |       828.1 us |     21.927 us |     20.511 us |     18.5547 |     - |     - |    114.84 KB |
-|               0x0100Deserialize |       Default |    100 |       843.4 us |      9.825 us |      8.204 us |     22.4609 |     - |     - |    140.63 KB |
-|   0x0200_All_AttachId_Serialize | .NET Core 2.2 |    100 |     3,817.6 us |     14.540 us |     12.890 us |     97.6563 |     - |     - |    605.08 KB |
-| 0x0200_All_AttachId_Deserialize | .NET Core 2.2 |    100 |     3,658.0 us |     21.807 us |     19.332 us |     85.9375 |     - |     - |    550.78 KB |
-|                 0x0100Serialize | .NET Core 2.2 |    100 |       688.0 us |      4.255 us |      3.772 us |     16.6016 |     - |     - |    107.03 KB |
-|               0x0100Deserialize | .NET Core 2.2 |    100 |       725.2 us |      8.795 us |      8.227 us |     22.4609 |     - |     - |    140.63 KB |
-|   **0x0200_All_AttachId_Serialize** |       **Default** |  **10000** |   **425,947.3 us** |  **2,179.088 us** |  **1,931.705 us** |  **10000.0000** |     **-** |     **-** |   **65593.7 KB** |
-| 0x0200_All_AttachId_Deserialize |       Default |  10000 |   404,590.9 us |  4,800.244 us |  4,008.421 us |  10000.0000 |     - |     - |  66329.09 KB |
-|                 0x0100Serialize |       Default |  10000 |    82,564.5 us |  1,050.587 us |    982.720 us |   1857.1429 |     - |     - |  11484.71 KB |
-|               0x0100Deserialize |       Default |  10000 |    82,683.4 us |    410.262 us |    342.587 us |   2285.7143 |     - |     - |  14063.02 KB |
-|   0x0200_All_AttachId_Serialize | .NET Core 2.2 |  10000 |   404,217.4 us |  8,002.297 us |  9,526.165 us |   9000.0000 |     - |     - |  60507.81 KB |
-| 0x0200_All_AttachId_Deserialize | .NET Core 2.2 |  10000 |   364,864.9 us |  2,127.595 us |  1,661.086 us |   8000.0000 |     - |     - |  55078.13 KB |
-|                 0x0100Serialize | .NET Core 2.2 |  10000 |    68,843.7 us |    476.217 us |    422.154 us |   1625.0000 |     - |     - |  10703.13 KB |
-|               0x0100Deserialize | .NET Core 2.2 |  10000 |    72,244.0 us |  1,257.149 us |  1,175.938 us |   2250.0000 |     - |     - |   14062.5 KB |
-|   **0x0200_All_AttachId_Serialize** |       **Default** | **100000** | **4,318,141.9 us** | **13,886.230 us** | **11,595.631 us** | **106000.0000** |     **-** |     **-** | **655870.67 KB** |
-| 0x0200_All_AttachId_Deserialize |       Default | 100000 | 4,033,396.5 us | 24,054.017 us | 20,086.194 us | 107000.0000 |     - |     - | 663287.26 KB |
-|                 0x0100Serialize |       Default | 100000 |   822,017.6 us | 15,945.510 us | 19,582.518 us |  18000.0000 |     - |     - | 114849.28 KB |
-|               0x0100Deserialize |       Default | 100000 |   831,373.6 us |  8,914.550 us |  7,444.053 us |  22000.0000 |     - |     - | 140633.58 KB |
-|   0x0200_All_AttachId_Serialize | .NET Core 2.2 | 100000 | 3,982,524.6 us | 36,465.352 us | 32,325.585 us |  98000.0000 |     - |     - | 605078.13 KB |
-| 0x0200_All_AttachId_Deserialize | .NET Core 2.2 | 100000 | 3,644,232.8 us | 21,105.087 us | 19,741.711 us |  89000.0000 |     - |     - | 550781.25 KB |
-|                 0x0100Serialize | .NET Core 2.2 | 100000 |   709,175.1 us | 11,199.138 us | 10,475.680 us |  17000.0000 |     - |     - | 107031.25 KB |
-|               0x0100Deserialize | .NET Core 2.2 | 100000 |   699,979.3 us |  1,854.203 us |  1,643.703 us |  22000.0000 |     - |     - |    140625 KB |
+|                          Method |     Toolchain |      N |           Mean |         Error |         StdDev |         Median |       Gen 0 | Gen 1 | Gen 2 |    Allocated |
+|-------------------------------- |-------------- |------- |---------------:|--------------:|---------------:|---------------:|------------:|------:|------:|-------------:|
+|   **0x0200_All_AttachId_Serialize** |       **Default** |    **100** |     **4,331.7 us** |     **84.946 us** |     **161.619 us** |     **4,295.7 us** |    **101.5625** |     **-** |     **-** |    **655.89 KB** |
+| 0x0200_All_AttachId_Deserialize |       Default |    100 |     4,133.2 us |     87.806 us |     196.391 us |     4,065.1 us |    101.5625 |     - |     - |    663.33 KB |
+|                 0x0100Serialize |       Default |    100 |       361.6 us |      6.881 us |       7.648 us |       360.1 us |     18.5547 |     - |     - |    114.84 KB |
+|               0x0100Deserialize |       Default |    100 |       399.4 us |      7.947 us |      15.499 us |       397.5 us |     22.4609 |     - |     - |    140.63 KB |
+|   0x0200_All_AttachId_Serialize | .NET Core 2.2 |    100 |     4,240.1 us |     83.707 us |     135.172 us |     4,203.3 us |     93.7500 |     - |     - |    605.08 KB |
+| 0x0200_All_AttachId_Deserialize | .NET Core 2.2 |    100 |     3,868.6 us |     77.279 us |     113.274 us |     3,891.3 us |     85.9375 |     - |     - |    550.78 KB |
+|                 0x0100Serialize | .NET Core 2.2 |    100 |       310.4 us |      6.167 us |       5.467 us |       311.4 us |     17.0898 |     - |     - |    107.03 KB |
+|               0x0100Deserialize | .NET Core 2.2 |    100 |       329.8 us |      6.520 us |      12.246 us |       328.1 us |     22.4609 |     - |     - |    140.63 KB |
+|   **0x0200_All_AttachId_Serialize** |       **Default** |  **10000** |   **428,119.1 us** |  **9,411.072 us** |  **12,881.981 us** |   **423,238.6 us** |  **10000.0000** |     **-** |     **-** |   **65593.7 KB** |
+| 0x0200_All_AttachId_Deserialize |       Default |  10000 |   409,079.6 us |  7,931.335 us |  11,118.624 us |   409,885.0 us |  10000.0000 |     - |     - |  66329.09 KB |
+|                 0x0100Serialize |       Default |  10000 |    37,024.9 us |    727.285 us |     945.675 us |    36,811.1 us |   1857.1429 |     - |     - |  11484.71 KB |
+|               0x0100Deserialize |       Default |  10000 |    38,524.5 us |    839.922 us |     824.916 us |    38,353.1 us |   2230.7692 |     - |     - |  14062.93 KB |
+|   0x0200_All_AttachId_Serialize | .NET Core 2.2 |  10000 |   446,606.3 us | 10,629.572 us |  31,006.961 us |   446,063.0 us |   9000.0000 |     - |     - |  60507.81 KB |
+| 0x0200_All_AttachId_Deserialize | .NET Core 2.2 |  10000 |   379,327.4 us |  8,042.055 us |  18,152.258 us |   374,608.7 us |   8000.0000 |     - |     - |  55078.13 KB |
+|                 0x0100Serialize | .NET Core 2.2 |  10000 |    30,793.0 us |    608.857 us |     812.807 us |    30,802.4 us |   1687.5000 |     - |     - |  10703.13 KB |
+|               0x0100Deserialize | .NET Core 2.2 |  10000 |    32,971.0 us |    760.703 us |   1,352.149 us |    32,730.2 us |   2285.7143 |     - |     - |   14062.5 KB |
+|   **0x0200_All_AttachId_Serialize** |       **Default** | **100000** | **4,274,178.9 us** | **65,289.797 us** |  **54,519.938 us** | **4,295,670.5 us** | **106000.0000** |     **-** |     **-** | **655870.67 KB** |
+| 0x0200_All_AttachId_Deserialize |       Default | 100000 | 4,256,477.1 us | 84,148.131 us | 153,869.616 us | 4,235,210.3 us | 107000.0000 |     - |     - |  663287.3 KB |
+|                 0x0100Serialize |       Default | 100000 |   361,104.4 us |  8,867.774 us |  13,272.867 us |   359,748.7 us |  18000.0000 |     - |     - | 114849.33 KB |
+|               0x0100Deserialize |       Default | 100000 |   380,141.7 us |  7,084.695 us |  10,384.654 us |   377,054.2 us |  22000.0000 |     - |     - | 140633.58 KB |
+|   0x0200_All_AttachId_Serialize | .NET Core 2.2 | 100000 | 3,874,808.0 us | 49,014.358 us |  40,929.209 us | 3,876,230.0 us |  98000.0000 |     - |     - | 605078.13 KB |
+| 0x0200_All_AttachId_Deserialize | .NET Core 2.2 | 100000 | 3,525,556.9 us | 46,550.128 us |  43,543.019 us | 3,523,294.3 us |  89000.0000 |     - |     - | 550781.25 KB |
+|                 0x0100Serialize | .NET Core 2.2 | 100000 |   287,180.5 us |  4,525.188 us |   3,778.737 us |   286,796.0 us |  17000.0000 |     - |     - | 107031.25 KB |
+|               0x0100Deserialize | .NET Core 2.2 | 100000 |   321,008.7 us |  6,416.113 us |  18,096.761 us |   322,410.5 us |  22000.0000 |     - |     - |    140625 KB |
 
 ## JT808终端通讯协议消息对照表
 

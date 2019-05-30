@@ -8,6 +8,7 @@ using JT808.Protocol.MessageBody;
 using System.Linq;
 using JT808.Protocol.Extensions.DependencyInjection.Test.JT808LocationAttach;
 using JT808.Protocol.Extensions.DependencyInjection.Test.JT808_0x0701BodiesImpl;
+using System.Reflection;
 
 namespace JT808.Protocol.Extensions.DependencyInjection.Test
 {
@@ -25,11 +26,18 @@ namespace JT808.Protocol.Extensions.DependencyInjection.Test
                 {
                     services.AddJT808Configure(new JT808Options
                     {
+                         ExternalAssemblies=new System.Collections.Generic.List<System.Reflection.Assembly>() {
+                             Assembly.GetExecutingAssembly()
+                         },
                         SkipCRCCode = false
-                    }
-                    //.Register_0x0200_Attach<JT808LocationAttachImpl0x06>(0x06)
-                    .Register_JT808_0x0701Body<JT808_0x0701TestBodiesImpl>());
-                });    
+                    });
+
+
+
+
+
+                }); 
+            
             await serverHostBuilder.RunConsoleAsync();
         }
     }

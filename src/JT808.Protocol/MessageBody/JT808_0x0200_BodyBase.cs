@@ -19,14 +19,6 @@ namespace JT808.Protocol.MessageBody
             InitJT808LocationAttachMethod();
         }
 
-        private static void GetJT808LocationAttachFormatter(byte attachId)
-        {
-            //switch (attachId)
-            //{
-            //    AttachId0x01 => { return new JT808_0x0200_0x01_Formatter()}
-            //}
-        }
-
         private static void InitJT808LocationAttachMethod()
         {
             JT808LocationAttachMethod = new Dictionary<byte, Type>

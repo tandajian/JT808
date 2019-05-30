@@ -457,17 +457,5 @@ namespace JT808.Protocol.MessageBody
                 { JT808_0x8103_0x0110_Type, typeof(JT808_0x8103_0x0110) }
             };
         }
-
-        internal static void AddJT808_0x8103Method(uint paramId, Type type)
-        {
-            if (!JT808_0x8103Method.ContainsKey(paramId))
-            {
-                JT808_0x8103Method.Add(paramId, type);
-            }
-            else
-            {
-                JT808_0x8103Method[paramId] = type;
-            }
-        }
     }
 }

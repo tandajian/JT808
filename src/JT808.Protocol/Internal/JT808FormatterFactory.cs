@@ -79,16 +79,9 @@ namespace JT808.Protocol.Internal
             return this;
         }
 
-        public IJT808FormatterFactory Register(params Assembly[] assemblys)
+        public void Register(Assembly externalAssembly)
         {
-            if (assemblys != null)
-            {
-                foreach (var asb in assemblys)
-                {
-                    Init(asb);
-                }
-            }
-            return this;
+            Init(externalAssembly);
         }
     }
 }

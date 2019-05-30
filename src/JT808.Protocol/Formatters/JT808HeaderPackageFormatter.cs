@@ -34,7 +34,7 @@ namespace JT808.Protocol.Formatters
             // 3.初始化消息头
             try
             {
-                jT808HeaderPackage.Header = JT808FormatterExtensions.GetFormatter<JT808Header>().Deserialize(buffer.Slice(offset), out readSize);
+                jT808HeaderPackage.Header = JT808FormatterExtensions.HeaderFormatter.Deserialize(buffer.Slice(offset), out readSize);
             }
             catch (Exception ex)
             {

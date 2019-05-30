@@ -31,6 +31,7 @@ namespace JT808.Protocol.Benchmark
             MsgId0x0200 = Enums.JT808MsgId.位置信息汇报.ToUInt16Value();
             MsgId0x0100 = Enums.JT808MsgId.终端注册.ToUInt16Value();
             bytes0x0100 = "7E 01 00 00 2D 00 01 23 45 67 89 00 0A 00 28 00 32 31 32 33 34 30 73 6D 61 6C 6C 63 68 69 31 32 33 30 30 30 30 30 30 30 30 30 43 48 49 31 32 33 30 01 D4 C1 41 31 32 33 34 35 BA 7E".ToHexBytes();
+            JT808GlobalConfig.Instance.Register();
         }
 
         [Benchmark(Description = "0x0200_All_AttachId_Serialize")]

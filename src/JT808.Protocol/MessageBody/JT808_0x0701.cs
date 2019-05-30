@@ -15,19 +15,13 @@ namespace JT808.Protocol.MessageBody
         /// 电子运单长度
         /// </summary>
         public uint ElectronicWaybillLength { get; set; }
+         
+        public byte[] ElectronicContent { get; set; }
 
         /// <summary>
         /// 电子运单内容
         /// 注意:需要具体的实现
         /// </summary>
-        public JT808_0x0701Body ElectronicContent { get; set; }
-
-        /// <summary>
-        /// 电子运单内容基类
-        /// </summary>
-        public abstract class JT808_0x0701Body
-        {
-            internal static Type BodyImpl { get; set; }
-        }
+        public JT808_0x0701_CustomBodyBase ElectronicContentObj { get; set; }
     }
 }

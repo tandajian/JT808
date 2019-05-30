@@ -56,7 +56,7 @@ namespace JT808.Protocol.Formatters.MessageBodyFormatters
                             attachOffset += locationAttachTotalLen;
                             jT808_0X0200.JT808LocationAttachData.Add(attachImpl.AttachInfoId, attachImpl);
                         }
-                        else if (JT808_0x0200_CustomBodyBase.CustomAttachIds.Contains(locationAttachSpan[attachOffset]))
+                        else if (JT808GlobalConfig.Instance.JT808_0X0200_Custom_Factory.AttachIds.Contains(locationAttachSpan[attachOffset]))
                         {
                             int attachContentLen = locationAttachSpan[attachOffset + 1];
                             int locationAttachTotalLen = attachId + attachLen + attachContentLen;

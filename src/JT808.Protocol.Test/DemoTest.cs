@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Xunit;
 
 namespace JT808.Protocol.Test
@@ -127,15 +128,14 @@ namespace JT808.Protocol.Test
         public void Demo4()
         {
             JT808GlobalConfig.Instance
-                // 注册自定义位置附加信息
-                .Register_0x0200_Attach(0x06)
-                //.SetMsgSNDistributed(//todo 实现IMsgSNDistributed消息流水号)
-                // 注册自定义数据上行透传信息
-                //.Register_0x0900_Ext<>(//todo 继承自JT808_0x0900_BodyBase类)
-                // 注册自定义数据下行透传信息
-                //.Register_0x8900_Ext<>(//todo 继承自JT808_0x8900_BodyBase类)
-                // 跳过校验码验证
-                .SetSkipCRCCode(true);
+                            //注册自定义消息
+                            .Register(Assembly.GetCallingAssembly())
+                            //.SplitPackageStrategy(//todo 实现ISplitPackageStrategy分包策略)
+                            //.SetCompress(//todo 实现IJT808ICompress压缩算法)
+                            //.SetMsgIdFactory(//todo 实现IJT808MsgIdFactory消息工厂)
+                            //.SetMsgSNDistributed(//todo 实现IMsgSNDistributed消息流水号)
+                            // 跳过校验码验证
+                            .SetSkipCRCCode(true);
         }
 
         /// <summary>
@@ -144,7 +144,8 @@ namespace JT808.Protocol.Test
         [Fact]
         public void Demo5()
         {
-            JT808GlobalConfig.Instance.Register_0x0200_Attach(0x81);
+            JT808GlobalConfig.Instance
+                            .Register(Assembly.GetCallingAssembly());
 
             JT808Package jT808Package = JT808MsgId.位置信息汇报.Create("123456789012",
                                                         new JT808_0x0200

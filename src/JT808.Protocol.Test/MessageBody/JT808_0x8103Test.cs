@@ -21,12 +21,12 @@ namespace JT808.Protocol.Test.MessageBody
                 Bodies = new JT808_0x8103
                 {
                     ParamList = new List<JT808_0x8103_BodyBase> {
-                    new JT808_0x8103_0x0001() {
-                         ParamId=0x0001,
-                         ParamLength=4,
-                         ParamValue=10
+                        new JT808_0x8103_0x0001() {
+                             ParamId=0x0001,
+                             ParamLength=4,
+                             ParamValue=10
+                        }
                     }
-                }
                 }
             };
             var hex = JT808Serializer.Serialize(jT808Package).ToHexString();

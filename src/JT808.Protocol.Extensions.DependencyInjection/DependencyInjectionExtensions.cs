@@ -8,13 +8,9 @@ namespace JT808.Protocol.Extensions.DependencyInjection
     {
         public static IServiceCollection AddJT808Configure(this IServiceCollection services, IOptions<JT808Options> jT808Options)
         {
-            JT808GlobalConfig.Instance.SetSkipCRCCode(jT808Options.Value.SkipCRCCode);
-            JT808GlobalConfig.Instance.Register_0x0200_Attach(jT808Options.Value.JT808LocationAttachIds.ToArray());
-            JT808GlobalConfig.Instance.Register_0x0200_Attach();
-            foreach (var item in jT808Options.Value.JT808_0x8103Method)
-            {
-                JT808GlobalConfig.Instance.Register_0x8103_ParamId(item.Key, item.Value);
-            }
+            JT808GlobalConfig.Instance
+                .Register(jT808Options.Value.ExternalAssemblies.ToArray())
+                .SetSkipCRCCode(jT808Options.Value.SkipCRCCode);
             var servicesProvider = services.BuildServiceProvider();
             try
             {

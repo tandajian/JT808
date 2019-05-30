@@ -1,7 +1,8 @@
 ﻿using JT808.Protocol.Formatters;
+using JT808.Protocol.Interfaces;
 using JT808.Protocol.Internal;
-using JT808.Protocol.MessageBody;
 using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -23,6 +24,8 @@ namespace JT808.Protocol
             MsgIdFactory = new JT808MsgIdFactory();
             Encoding = Encoding.GetEncoding("GBK");
             FormatterFactory = new JT808FormatterFactory();
+            JT808_0X0200_Custom_Factory = new JT808_0x0200_Custom_Factory();
+            JT808_0X8103_Custom_Factory = new JT808_0x8103_Custom_Factory();
         }
 
         public IMsgSNDistributed MsgSNDistributed { get; private set; }
@@ -35,7 +38,20 @@ namespace JT808.Protocol
 
         public Encoding Encoding;
 
+        /// <summary>
+        /// 序列化器工厂
+        /// </summary>
         internal IJT808FormatterFactory FormatterFactory { get; }
+
+        /// <summary>
+        /// 自定义附加信息工厂
+        /// </summary>
+        internal IJT808_0x0200_Custom_Factory  JT808_0X0200_Custom_Factory { get; }
+
+        /// <summary>
+        ///自定义设置终端参数工厂
+        /// </summary>
+        internal IJT808_0x8103_Custom_Factory JT808_0X8103_Custom_Factory { get; }
 
         /// <summary>
         /// 跳过校验码
@@ -43,48 +59,6 @@ namespace JT808.Protocol
         /// 默认：false
         /// </summary>
         public bool SkipCRCCode { get; private set; }
-
-        /// <summary>
-        /// 注册自定义定位信息附加数据
-        /// </summary>
-        /// <typeparam name="attachInfoId"></typeparam>
-        public JT808GlobalConfig Register_0x0200_Attach(params byte[] attachInfoId)
-        {
-            if (attachInfoId != null && attachInfoId.Length > 0)
-            {
-                foreach (var id in attachInfoId)
-                {
-                    if (!JT808_0x0200_CustomBodyBase.CustomAttachIds.Contains(id))
-                    {
-                        JT808_0x0200_CustomBodyBase.CustomAttachIds.Add(id);
-                    }
-                }
-            }
-            return this;
-        }
-
-        /// <summary>
-        /// 注册自定义设置终端参数Id
-        /// <see cref="typeof(JT808.Protocol.MessageBody.JT808_0x8103_BodyBase)"/>
-        /// <see cref="typeof(实现JT808_0x8103_BodyBase)"/>
-        /// <returns></returns>
-        public JT808GlobalConfig Register_0x8103_ParamId(uint paramId, Type type)
-        {
-            JT808_0x8103_BodyBase.AddJT808_0x8103Method(paramId, type);
-            return this;
-        }
-
-        /// <summary>
-        /// 注册电子运单内容实现类
-        /// </summary>
-        /// <typeparam name="TJT808_0x0701Body"></typeparam>
-        /// <returns></returns>
-        public JT808GlobalConfig Register_JT808_0x0701Body<TJT808_0x0701Body>()
-               where TJT808_0x0701Body : JT808_0x0701.JT808_0x0701Body
-        {
-            JT808_0x0701.JT808_0x0701Body.BodyImpl = typeof(TJT808_0x0701Body);
-            return this;
-        }
 
         /// <summary>
         /// 设置消息序列号
@@ -143,6 +117,23 @@ namespace JT808.Protocol
             }
             return this;
         }
-
+        /// <summary>
+        /// 全局注册外部程序集
+        /// </summary>
+        /// <param name="externalAssemblies"></param>
+        /// <returns></returns>
+        public JT808GlobalConfig Register(params Assembly[] externalAssemblies)
+        {
+            if (externalAssemblies != null)
+            {
+                foreach(var easb in externalAssemblies)
+                {
+                    FormatterFactory.Register(easb);
+                    JT808_0X0200_Custom_Factory.Register(easb);
+                    JT808_0X8103_Custom_Factory.Register(easb);
+                }
+            }
+            return this;
+        }
     }
 }

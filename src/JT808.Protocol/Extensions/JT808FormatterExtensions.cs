@@ -23,5 +23,24 @@ namespace JT808.Protocol.Extensions
             }
             return formatter;
         }
+
+        static JT808FormatterExtensions()
+        {
+            PackageFormatter = (JT808PackageFormatter)GetFormatter<JT808Package>();
+            HeaderPackageFormatter = (JT808HeaderPackageFormatter)GetFormatter<JT808HeaderPackage>();
+            HeaderFormatter = (JT808HeaderFormatter)GetFormatter<JT808Header>();
+            HeaderMessageBodyPropertyFormatter = (JT808HeaderMessageBodyPropertyFormatter)GetFormatter<JT808HeaderMessageBodyProperty>();
+            SplitPackageBodiesFormatter = (JT808SplitPackageBodiesFormatter)GetFormatter<JT808SplitPackageBodies>();
+        }
+
+        public static JT808HeaderFormatter HeaderFormatter { get; }
+
+        public static JT808HeaderMessageBodyPropertyFormatter HeaderMessageBodyPropertyFormatter { get; }
+
+        public static JT808HeaderPackageFormatter HeaderPackageFormatter { get; }
+
+        public static JT808PackageFormatter PackageFormatter { get; }
+
+        public static JT808SplitPackageBodiesFormatter SplitPackageBodiesFormatter { get; }
     }
 }
